@@ -22,4 +22,9 @@ public class FTCRobot {
         vision.initializeHardware(hwMap);
         programa.telemetry.addData("Status", "Ready to rumbleee!!!");
     }
+
+    public void logMechanismStatus(){
+        String identifiedTarget = vision.getTargetName();
+        programa.telemetry.addData("Identified target:", identifiedTarget);
+    }
 }
