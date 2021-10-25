@@ -33,6 +33,7 @@ public class Teleoperado extends OpMode{
         double turn = gamepad1.right_stick_x;
         robot.chasis.move(drive, lateral, turn);
         telemetry.addData("FPS", fps.getUpdatedFPS());
+        robot.logMechanismStatus();
         telemetry.update();
     }
     
