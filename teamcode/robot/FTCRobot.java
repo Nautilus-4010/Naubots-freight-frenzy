@@ -9,6 +9,7 @@ public class FTCRobot {
     protected OpMode programa;
 
     public ChasisOmni chasis;
+    public RobotVision vision;
     
     public FTCRobot(OpMode programa){
         this.programa = programa;
@@ -17,7 +18,8 @@ public class FTCRobot {
     
     public void initializeMechanisms(){
         HardwareMap hwMap = programa.hardwareMap;
-        chasis.initializeHardware(hwMap);
+        //chasis.initializeHardware(hwMap);
+        vision.initializeHardware(hwMap);
         programa.telemetry.addData("Status", "Ready to rumbleee!!!");
     }
 }
