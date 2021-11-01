@@ -14,6 +14,7 @@ public class FTCRobot {
     public FTCRobot(OpMode programa){
         this.programa = programa;
         this.chasis = new ChasisOmni();
+        this.vision = new RobotVision();
     }
     
     public void initializeMechanisms(){
@@ -24,7 +25,7 @@ public class FTCRobot {
     }
 
     public void logMechanismStatus(){
-        String identifiedTarget = vision.getTargetName();
-        programa.telemetry.addData("Identified target:", identifiedTarget);
+        /* String identifiedTarget = vision.getTargetName();
+        programa.telemetry.addData("Identified target:", identifiedTarget); */
     }
 }
