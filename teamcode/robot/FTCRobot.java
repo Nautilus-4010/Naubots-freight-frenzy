@@ -20,7 +20,7 @@ public class FTCRobot {
     
     public void initializeMechanisms(){
         HardwareMap hwMap = programa.hardwareMap;
-        //chasis.initializeHardware(hwMap);
+        chasis.initializeHardware(hwMap);
         vision.initializeHardware(hwMap);
         programa.telemetry.addData("Status", "Ready to rumbleee!!!");
     }
