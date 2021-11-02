@@ -8,10 +8,14 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.teamcode.utils.TargetInfo;
 
 public class RobotVision implements Mechanism {
     
-    public final static double MM_PER_INCH = 25.40 ;
+    public final static String TARGET_LORRY = "Lorry";
+    public final static String TARGET_LORRIES = "Lorries";
+    public final static String TARGET_BOAT = "Boat";
+    public final static String TARGET_AIRPLANE = "Airplane";
 
     VuforiaLocalizer vuforia;
     VuforiaTrackables targetsFreightFrenzy;
@@ -26,39 +30,28 @@ public class RobotVision implements Mechanism {
         parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
         targetsFreightFrenzy = this.vuforia.loadTrackablesFromAsset("FreightFrenzy");
-        targetsFreightFrenzy.get(0).setName("Barco");
-        targetsFreightFrenzy.get(1).setName("Avion");
-        targetsFreightFrenzy.get(2).setName("Camiones");
-        targetsFreightFrenzy.get(3).setName("Camion");
+        targetsFreightFrenzy.get(0).setName(TARGET_BOAT);
+        targetsFreightFrenzy.get(1).setName(TARGET_AIRPLANE);
+        targetsFreightFrenzy.get(2).setName(TARGET_LORRIES);
+        targetsFreightFrenzy.get(3).setName(TARGET_LORRY);
         targetsFreightFrenzy.activate();
     }
     
-    public String getTargetName(){
-        String targetName = null;
-        double  targetRange = 0;
-        double  targetBearing = 0;
+    public TargetInfo getIdentifiedTarget(){
         for (VuforiaTrackable trackable : targetsFreightFrenzy){
             VuforiaTrackableDefaultListener trackableListener = (VuforiaTrackableDefaultListener) trackable.getListener();
-            if (trackableListener.isVisible()){
-                OpenGLMatrix targetPose;
-                targetPose = trackableListener.getVuforiaCameraFromTarget();
-
-                if (targetPose != null){
-                    targetName  = trackable.getName();
-                    VectorF trans = targetPose.getTranslation();
-                    double targetX = trans.get(0) / MM_PER_INCH;
-                    double targetY = trans.get(2) / MM_PER_INCH;
-                    targetRange = Math.hypot(targetX, targetY);
-                    targetBearing = Math.toDegrees(Math.asin(targetX / targetRange));
-                    break;
-                }
-            }
+            if (trackableListener.isVisible())
+                return extractTrackableInfo(trackable);
         }
-
-        if (targetName != null) {
-            return targetName;
-        } else {
-            return "Target not found";
-        }
+        return null;
+    }
+    
+    private TargetInfo extractTrackableInfo(VuforiaTrackable trackable){
+        VuforiaTrackableDefaultListener trackableListener = (VuforiaTrackableDefaultListener) trackable.getListener();
+        TargetInfo info = new TargetInfo(trackable.getName());
+        OpenGLMatrix targetPose = trackableListener.getVuforiaCameraFromTarget();
+        VectorF trans = targetPose.getTranslation();
+        info.setPosition(trans.get(0), trans.get(1), trans.get(2));
+        return info;
     }
 }
