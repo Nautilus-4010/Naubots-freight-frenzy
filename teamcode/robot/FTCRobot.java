@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.robot;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import org.firstinspires.ftc.teamcode.utils.TargetInfo;
 
 
 public class FTCRobot {
@@ -25,7 +26,10 @@ public class FTCRobot {
     }
 
     public void logMechanismStatus(){
-        /* String identifiedTarget = vision.getTargetName();
-        programa.telemetry.addData("Identified target:", identifiedTarget); */
+        TargetInfo identifiedTarget = vision.getIdentifiedTarget();
+        if(identifiedTarget != null){
+            programa.telemetry.addData("Identified target", identifiedTarget.name);
+            programa.telemetry.addData("Pos (mm)", "{X, Y, Z} = %.1f, %.1f, %.1f", identifiedTarget.x, identifiedTarget.y, identifiedTarget.z);
+        }
     }
 }
