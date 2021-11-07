@@ -9,6 +9,9 @@ public class CuatroBarras implements Mechanism {
 
     public static final double POSITION_PICK_FREIGHT = 0;
     public static final double POSITION_LEVEL_ONE = 0.2;
+    public static final double POSITION_LEVEL_TWO = 0.4;
+    public static final double POSITION_LEVEL_THREE = 0.6;
+    public static final double POSITION_CAPPING = 0.8;
 
     private DcMotor motor;
     private AnalogInput potentiometer;
@@ -24,5 +27,13 @@ public class CuatroBarras implements Mechanism {
 
     public void setPosition(double targetPosition){
         double currentPosition = getPosition();
+        double motorPower = 0.5;
+        if(currentPosition<targetPosition){
+            motor.setPower(motorPower);
+        }else if(currentPosition>targetPosition){
+            motor.setPower(-motorPower);
+        }else{
+            motor.setPower(0);
+        }
     }
 }

@@ -48,9 +48,16 @@ public class Teleoperado extends OpMode{
     public void stop(){}
 
     private void cuatroBarrasPosition(){
-        if(gamepad1.a)
+        if(gamepad1.b){
             cuatroBarrasPosition = CuatroBarras.POSITION_LEVEL_ONE;
-        else
+        }else if(gamepad1.x){
+            cuatroBarrasPosition = CuatroBarras.POSITION_LEVEL_TWO;
+        }else if(gamepad1.y){
+            cuatroBarrasPosition = CuatroBarras.POSITION_LEVEL_THREE;
+        }else if(gamepad1.a){
+            cuatroBarrasPosition = CuatroBarras.POSITION_CAPPING;
+        }else{
             cuatroBarrasPosition = CuatroBarras.POSITION_PICK_FREIGHT;
+        }
     }
 }
