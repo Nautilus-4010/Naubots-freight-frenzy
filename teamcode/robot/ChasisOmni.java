@@ -18,6 +18,7 @@ public class ChasisOmni implements Mechanism{
         frontRight = hardwareMap.get(DcMotor.class, "");
         backLeft = hardwareMap.get(DcMotor.class, "");
         backRight = hardwareMap.get(DcMotor.class, "");
+        //backLeft.setDirection(DcMotor.Direction.REVERSE);
     }
     
     public void move(double drive, double lateral, double turn){
