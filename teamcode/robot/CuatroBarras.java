@@ -17,7 +17,7 @@ public class CuatroBarras implements Mechanism {
     private AnalogInput potentiometer;
 
     public void initializeHardware(HardwareMap hardwareMap){
-        motor = hardwareMap.get(DcMotor.class, "motor_cuatro_barras");
+        motor = hardwareMap.get(DcMotor.class, "motor4b");
         potentiometer = hardwareMap.get(AnalogInput.class, "potenciometro");
     }
 

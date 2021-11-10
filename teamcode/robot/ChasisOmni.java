@@ -14,10 +14,10 @@ public class ChasisOmni implements Mechanism{
     public ChasisOmni(){}
     
     public void initializeHardware(HardwareMap hardwareMap){
-        frontLeft = hardwareMap.get(DcMotor.class, "motor 1");
-        frontRight = hardwareMap.get(DcMotor.class, "");
-        backLeft = hardwareMap.get(DcMotor.class, "");
-        backRight = hardwareMap.get(DcMotor.class, "");
+        frontLeft = hardwareMap.get(DcMotor.class, "motorFl");
+        frontRight = hardwareMap.get(DcMotor.class, "motorFr");
+        backLeft = hardwareMap.get(DcMotor.class, "motorBl");
+        backRight = hardwareMap.get(DcMotor.class, "motorBr");
         //backLeft.setDirection(DcMotor.Direction.REVERSE);
     }
     

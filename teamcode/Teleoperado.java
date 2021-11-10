@@ -42,6 +42,7 @@ public class Teleoperado extends OpMode{
         telemetry.addData("FPS", fps.getUpdatedFPS());
         robot.logMechanismStatus();
         telemetry.update();
+        
     }
     
     @Override
