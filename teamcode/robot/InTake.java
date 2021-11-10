@@ -20,5 +20,6 @@ public class InTake implements Mechanism {
             intake.setPower(-motorItPower);
         }else{
             intake.setPower(0);
+        }
     }
 }
