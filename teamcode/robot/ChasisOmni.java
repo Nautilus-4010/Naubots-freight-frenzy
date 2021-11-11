@@ -28,9 +28,9 @@ public class ChasisOmni implements Mechanism{
         double backRightPower = drive + lateral - turn;
         // TODO: Assign the corresponding power to each motor
         frontLeft.setPower(frontLeftPower);
-        frontRight.setPower(frontLeftPower);
-        backLeft.setPower(frontLeftPower);
-        backRight.setPower(frontLeftPower);
+        frontRight.setPower(frontRightPower);
+        backLeft.setPower(backLeftPower);
+        backRight.setPower(backRightPower);
     }
     
     
