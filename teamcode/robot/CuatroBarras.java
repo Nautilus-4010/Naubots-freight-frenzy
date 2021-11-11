@@ -36,4 +36,28 @@ public class CuatroBarras implements Mechanism {
             motor.setPower(0);
         }
     }
+
+
+
+    // Codigo para usar el mecanismo de cuatro barras manualmente:
+
+    /*
+    private DcMotor motor;
+
+    public void initializeHardware(HardwareMap hardwareMap){
+        motor = hardwareMap.get(DcMotor.class, "motor4b");
+    }
+
+    public void setDirection(){
+        double motor4bPower = 0.8;
+        if (gamepad1.b) { 
+            intake.setPower(motor4bPower);
+        }else if(gamepad1.y){
+            intake.setPower(-motor4bPower);
+        }else{
+            intake.setPower(0);
+        }
+    }
+    */
+
 }
