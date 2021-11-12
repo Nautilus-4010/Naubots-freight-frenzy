@@ -38,15 +38,18 @@ public class Teleoperado extends OpMode{
         double turn = gamepad1.right_stick_x;
         robot.chasis.move(drive, lateral, turn);
         cuatroBarrasPosition();
+        // Intake control
         robot.cuatroBarras.setPosition(cuatroBarrasPosition);
         if(gamepad1.right_trigger > 0.5){
             robot.intake.pickFreight();
         }else if(gamepad1.left_trigger > 0.5){
             robot.intake.dropFreight();
         }
+        
+        // Cuatro barras control
+        setDirection();
         telemetry.addData("FPS", fps.getUpdatedFPS());
         robot.logMechanismStatus();
-        robot.intake.setDirection();
         telemetry.update();
         
     }
@@ -68,14 +71,14 @@ public class Teleoperado extends OpMode{
         }
     }
 
-    public void setDirection(){
+    private void setDirection(){
         double motor4bPower = 0.8;
         if(gamepad1.b) { 
             robot.cuatroBarras.motor.setPower(motor4bPower);
         }else if(gamepad1.y){
             robot.cuatroBarras.motor.setPower(-motor4bPower);
         }else{
-            intake.setPower(0);
+            robot.cuatroBarras.motor.setPower(0);
         }
     }
 }
