@@ -39,9 +39,9 @@ public class Teleoperado extends OpMode{
         robot.chasis.move(drive, lateral, turn);
         cuatroBarrasPosition();
         robot.cuatroBarras.setPosition(cuatroBarrasPosition);
-        if(){
+        if(gamepad1.right_trigger > 0.5){
             robot.InTake.pickFreight();
-        }else if(){
+        }else if(gamepad1.left_trigger > 0.5){
             robot.InTake.dropFreight();
         }
         telemetry.addData("FPS", fps.getUpdatedFPS());

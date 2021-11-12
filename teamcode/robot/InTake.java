@@ -7,26 +7,17 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class InTake implements Mechanism {
     
     private DcMotor intake;
+    private double motorItPower = 0.8;
 
     public void initializeHardware(HardwareMap hardwareMap){
         intake = hardwareMap.get(DcMotor.class, "motorIntake");
     }
 
     public void pickFreight(){
-        double motorItPower = 0.8; // Por optización
-        if (gamepad1.right_trigger > 0.5) { 
-            intake.setPower(motorItPower);
-        }else{
-            intake.setPower(0);
-        }
+        intake.setPower(motorItPower);
     }
 
     public void dropFreight(){
-        double motorItPower = 0.8; // Por optización
-        if(gamepad1.left_trigger > 0.5){
-            intake.setPower(-motorItPower);
-        }else{
-            intake.setPower(0);
-        }
+        intake.setPower(-motorItPower);
     }
 }
