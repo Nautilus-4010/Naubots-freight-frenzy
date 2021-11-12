@@ -14,12 +14,14 @@ public class FTCRobot {
     public ChasisOmni chasis;
     public RobotVision vision;
     public CuatroBarras cuatroBarras;
+    public InTake intake;
     
     public FTCRobot(OpMode programa){
         this.programa = programa;
         this.chasis = new ChasisOmni();
         this.vision = new RobotVision();
         this.cuatroBarras = new CuatroBarras();
+        this.intake = new InTake();
     }
     
     public void initializeMechanisms(){
@@ -27,6 +29,7 @@ public class FTCRobot {
         chasis.initializeHardware(hwMap);
         vision.initializeHardware(hwMap);
         //cuatroBarras.initializeHardware(hwMap);
+        intake.initializeHardware(hwMap);
         programa.telemetry.addData("Status", "Ready to rumbleee!!!");
     }
 

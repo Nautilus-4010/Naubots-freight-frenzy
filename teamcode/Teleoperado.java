@@ -41,6 +41,7 @@ public class Teleoperado extends OpMode{
         robot.cuatroBarras.setPosition(cuatroBarrasPosition);
         telemetry.addData("FPS", fps.getUpdatedFPS());
         robot.logMechanismStatus();
+        robot.intake.setDirection();
         telemetry.update();
         
     }
@@ -61,7 +62,6 @@ public class Teleoperado extends OpMode{
             cuatroBarrasPosition = CuatroBarras.POSITION_PICK_FREIGHT;
         }
     }
-
 
     public void setDirection(){
         double motor4bPower = 0.8;

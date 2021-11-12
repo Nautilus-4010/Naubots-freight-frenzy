@@ -13,7 +13,7 @@ public class InTake implements Mechanism {
     }
 
     public void setDirection(){
-        double motorItPower = 1;
+        double motorItPower = 0.8; // Por optización
         if (gamepad1.right_trigger > 0.5) { 
             intake.setPower(motorItPower);
         }else if(gamepad1.left_trigger > 0.5){
