@@ -61,4 +61,16 @@ public class Teleoperado extends OpMode{
             cuatroBarrasPosition = CuatroBarras.POSITION_PICK_FREIGHT;
         }
     }
+
+
+    public void setDirection(){
+        double motor4bPower = 0.8;
+        if (gamepad1.b) { 
+            robot.cuatroBarras.motor.setPower(motor4bPower);
+        }else if(gamepad1.y){
+            robot.cuatroBarras.motor.setPower(-motor4bPower);
+        }else{
+            intake.setPower(0);
+        }
+    }
 }

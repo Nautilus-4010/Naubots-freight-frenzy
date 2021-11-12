@@ -13,7 +13,7 @@ public class CuatroBarras implements Mechanism {
     public static final double POSITION_LEVEL_THREE = 0.6;
     public static final double POSITION_CAPPING = 0.8;
 
-    private DcMotor motor;
+    public DcMotor motor;
     private AnalogInput potentiometer;
 
     public void initializeHardware(HardwareMap hardwareMap){
@@ -51,9 +51,9 @@ public class CuatroBarras implements Mechanism {
     public void setDirection(){
         double motor4bPower = 0.8;
         if (gamepad1.b) { 
-            intake.setPower(motor4bPower);
+            robot.cuatroBarras.motor.setPower(motor4bPower);
         }else if(gamepad1.y){
-            intake.setPower(-motor4bPower);
+            robot.cuatroBarras.motor.setPower(-motor4bPower);
         }else{
             intake.setPower(0);
         }
