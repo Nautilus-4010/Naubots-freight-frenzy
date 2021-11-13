@@ -28,7 +28,7 @@ public class FTCRobot {
         HardwareMap hwMap = programa.hardwareMap;
         chasis.initializeHardware(hwMap);
         vision.initializeHardware(hwMap);
-        //cuatroBarras.initializeHardware(hwMap);
+        cuatroBarras.initializeHardware(hwMap);
         intake.initializeHardware(hwMap);
         programa.telemetry.addData("Status", "Ready to rumbleee!!!");
     }
