@@ -44,6 +44,8 @@ public class Teleoperado extends OpMode{
             robot.intake.pickFreight();
         }else if(gamepad1.left_trigger > 0.5){
             robot.intake.dropFreight();
+        }else{
+            robot.intake.stopInTake();
         }
         
         // Cuatro barras control

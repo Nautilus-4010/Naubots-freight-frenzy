@@ -20,4 +20,8 @@ public class InTake implements Mechanism {
     public void dropFreight(){
         intake.setPower(-motorItPower);
     }
+
+    public void stopInTake(){
+        intake.setPower(0);
+    }
 }
