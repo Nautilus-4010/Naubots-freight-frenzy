@@ -15,6 +15,7 @@ public class FTCRobot {
     public RobotVision vision;
     public CuatroBarras cuatroBarras;
     public InTake intake;
+    public SuperPato superPato;
     
     public FTCRobot(OpMode programa){
         this.programa = programa;
@@ -22,6 +23,7 @@ public class FTCRobot {
         this.vision = new RobotVision();
         this.cuatroBarras = new CuatroBarras();
         this.intake = new InTake();
+        this.superPato = new SuperPato();
     }
     
     public void initializeMechanisms(){
