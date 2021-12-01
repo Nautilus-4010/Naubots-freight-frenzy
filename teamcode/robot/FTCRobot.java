@@ -32,6 +32,7 @@ public class FTCRobot {
         vision.initializeHardware(hwMap);
         cuatroBarras.initializeHardware(hwMap);
         intake.initializeHardware(hwMap);
+        superPato.initializeHardware(hwMap);
         programa.telemetry.addData("Status", "Ready to rumbleee!!!");
     }
 
