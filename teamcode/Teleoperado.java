@@ -33,9 +33,9 @@ public class Teleoperado extends OpMode{
     
     @Override
     public void loop(){
-        double drive = -gamepad1.left_stick_y;
-        double lateral = gamepad1.left_stick_x;
-        double turn = gamepad1.right_stick_x;
+        double drive = -gamepad2.left_stick_y;
+        double lateral = gamepad2.left_stick_x;
+        double turn = gamepad2.right_stick_x;
         robot.chasis.move(drive, lateral, turn);
         cuatroBarrasPosition();
         // Intake control
@@ -47,9 +47,9 @@ public class Teleoperado extends OpMode{
         }else{
             robot.intake.stopInTake();
         }
-        
+
         //SuperPato control
-        if(gamepad1.a){
+        if(gamepad2.a){
             robot.superPato.dropSuperPato();
         }else{
             robot.superPato.stopSuperPato();

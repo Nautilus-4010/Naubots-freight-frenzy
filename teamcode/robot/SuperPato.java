@@ -14,10 +14,10 @@ public class SuperPato implements Mechanism {
     }
 
     public void dropSuperPato(){
-        intake.setPower(motorSpPower);
+        superPato.setPower(motorSpPower);
     }
 
     public void stopSuperPato(){
-        intake.setPower(0);
+        superPato.setPower(0);
     }
 }
