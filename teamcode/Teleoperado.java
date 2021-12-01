@@ -48,6 +48,13 @@ public class Teleoperado extends OpMode{
             robot.intake.stopInTake();
         }
         
+        //SuperPato control
+        if(gamepad1.a){
+            robot.superPato.dropSuperPato();
+        }else{
+            robot.superPato.stopSuperPato();
+        }
+        
         // Cuatro barras control
         setDirection();
         telemetry.addData("FPS", fps.getUpdatedFPS());
