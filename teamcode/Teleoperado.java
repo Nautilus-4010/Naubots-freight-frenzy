@@ -2,24 +2,19 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import org.firstinspires.ftc.teamcode.robot.FTCRobot;
-import org.firstinspires.ftc.teamcode.robot.CuatroBarras;
-import org.firstinspires.ftc.teamcode.utils.FPSCounter;
+import org.firstinspires.ftc.teamcode.Naubot;
+
 
 @TeleOp(name="Teleoperado")
 public class Teleoperado extends OpMode{
-    private FTCRobot robot;
-    private FPSCounter fps;
+    private Naubot robot;
 
     private double cuatroBarrasPosition;
 
     @Override
     public void init(){
-        robot = new FTCRobot(this);
-        fps = new FPSCounter();
-        robot.initializeMechanisms();
-        cuatroBarrasPosition = CuatroBarras.POSITION_PICK_FREIGHT;
-        //robot.cuatroBarras.setPosition(cuatroBarrasPosition);
+        robot = new Naubot(this);
+        robot.initializeHardware();
         telemetry.update();
     }
     
@@ -28,66 +23,47 @@ public class Teleoperado extends OpMode{
     
     @Override
     public void start(){
-        fps.startTimer();
+        
     }
     
     @Override
     public void loop(){
-        double drive = -gamepad2.left_stick_y;
-        double lateral = gamepad2.left_stick_x;
-        double turn = gamepad2.right_stick_x;
-        robot.chasis.move(drive, lateral, turn);
-        cuatroBarrasPosition();
+        double drive = -gamepad1.left_stick_y;
+        double lateral = gamepad1.left_stick_x;
+        double turn = gamepad1.right_stick_x;
+        robot.move(drive, lateral, turn);
         // Intake control
-        //robot.cuatroBarras.setPosition(cuatroBarrasPosition);
-        if(gamepad1.right_trigger > 0.5){
-            robot.intake.pickFreight();
-        }else if(gamepad1.left_trigger > 0.5){
-            robot.intake.dropFreight();
-        }else{
-            robot.intake.stopInTake();
-        }
-
+        if(gamepad1.right_trigger > 0.5)
+            robot.pickFreight();
+        else if(gamepad1.left_trigger > 0.5)
+            robot.dropFreight();
+        else
+            robot.stopInTake();
+            
         //SuperPato control
         if(gamepad2.a){
-            robot.superPato.dropSuperPato();
-        }else{
-            robot.superPato.stopSuperPato();
+            robot.dropSuperPato();
+        } else {
+            robot.stopSuperPato();
         }
         
         // Cuatro barras control
-        setDirection();
-        telemetry.addData("FPS", fps.getUpdatedFPS());
-        robot.logMechanismStatus();
-        telemetry.update();
+        controlCuatroBarras();
         
+        telemetry.update();
     }
     
     @Override
     public void stop(){}
 
-    private void cuatroBarrasPosition(){
-        if(gamepad1.b){
-            cuatroBarrasPosition = CuatroBarras.POSITION_LEVEL_ONE;
-        }else if(gamepad1.x){
-            cuatroBarrasPosition = CuatroBarras.POSITION_LEVEL_TWO;
-        }else if(gamepad1.y){
-            cuatroBarrasPosition = CuatroBarras.POSITION_LEVEL_THREE;
-        }else if(gamepad1.a){
-            cuatroBarrasPosition = CuatroBarras.POSITION_CAPPING;
-        }else{
-            cuatroBarrasPosition = CuatroBarras.POSITION_PICK_FREIGHT;
-        }
-    }
-
-    private void setDirection(){
+    private void controlCuatroBarras(){
         double motor4bPower = 0.8;
-        if(gamepad1.a) { 
-            robot.cuatroBarras.motor.setPower(motor4bPower);
+        if(gamepad1.b) { 
+            robot.cuatroBarras.setPower(motor4bPower);
         }else if(gamepad1.y){
-            robot.cuatroBarras.motor.setPower(-motor4bPower);
+            robot.cuatroBarras.setPower(-motor4bPower);
         }else{
-            robot.cuatroBarras.motor.setPower(0);
+            robot.cuatroBarras.setPower(0);
         }
     }
 }
