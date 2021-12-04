@@ -41,9 +41,9 @@ public class Teleoperado extends OpMode{
         robot.move(drive, lateral, turn, multiplier);
         
         // Intake control
-        if(gamepad1.right_trigger > 0.5)
+        if(gamepad1.left_trigger > 0.5)
             robot.pickFreight();
-        else if(gamepad1.left_trigger > 0.5)
+        else if(gamepad1.right_trigger > 0.5)
             robot.dropFreight();
         else
             robot.stopInTake();
@@ -66,9 +66,9 @@ public class Teleoperado extends OpMode{
 
     private void controlCuatroBarras(){
         double motor4bPower = 0.8;
-        if(gamepad1.b) { 
+        if(gamepad1.y) { 
             robot.cuatroBarras.setPower(motor4bPower);
-        }else if(gamepad1.y){
+        }else if(gamepad1.b){
             robot.cuatroBarras.setPower(-motor4bPower);
         }else{
             robot.cuatroBarras.setPower(0);
