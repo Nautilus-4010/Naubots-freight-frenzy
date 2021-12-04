@@ -32,13 +32,14 @@ public class Teleoperado extends OpMode{
         double drive = -gamepad2.left_stick_y;
         double lateral = gamepad2.left_stick_x;
         double turn = gamepad2.right_stick_x;
-        robot.move(drive, lateral, turn);
         // Multiplier control
         if(gamepad2.right_trigger > 0.5)
             multiplier = 1.0;
         else{
             multiplier = 0.85;
         }
+        robot.move(drive, lateral, turn, multiplier);
+        
         // Intake control
         if(gamepad1.right_trigger > 0.5)
             robot.pickFreight();
