@@ -28,17 +28,15 @@ public class Teleoperado extends OpMode{
     
     @Override
     public void loop(){
-        double multiplier; 
+        double powerMultiplier; 
         double drive = -gamepad2.left_stick_y;
         double lateral = gamepad2.left_stick_x;
         double turn = gamepad2.right_stick_x;
-        // Multiplier control
         if(gamepad2.right_trigger > 0.5)
-            multiplier = 1.0;
-        else{
-            multiplier = 0.85;
-        }
-        robot.move(drive, lateral, turn, multiplier);
+            powerMultiplier = 1.0;
+        else
+            powerMultiplier = 0.5;
+        robot.move(drive, lateral, turn, powerMultiplier);
         
         // Intake control
         if(gamepad1.left_trigger > 0.5)
@@ -51,24 +49,39 @@ public class Teleoperado extends OpMode{
         //SuperPato control
         if(gamepad2.a){
             robot.dropSuperPato();
-        } else {
+        } else if(gamepad2.y){
+            robot.drop2SuperPato();
+        }else {
             robot.stopSuperPato();
         }
         
         // Cuatro barras control
         controlCuatroBarras();
-        
-        telemetry.update();
+        logRobotStatus();
     }
     
     @Override
     public void stop(){}
+    
+    private void logRobotStatus(){
+        telemetry.addData("POWER", "");
+        telemetry.addData("", String.format("%.2f | %.2f", robot.frontLeft.getPower(), robot.frontRight.getPower()));
+        telemetry.addData("", String.format("%.2f | %.2f", robot.backLeft.getPower(), robot.backRight.getPower()));
+        
+        telemetry.addData("ENCODERS", "");
+        telemetry.addData("Front right", "" + robot.frontRight.getCurrentPosition());
+        telemetry.addData("Front left", "" + robot.frontLeft.getCurrentPosition());
+        telemetry.addData("Back left", "" + robot.backLeft.getCurrentPosition());
+        telemetry.addData("Back right", "" + robot.backRight.getCurrentPosition());
+        
+        telemetry.update();
+    }
 
     private void controlCuatroBarras(){
         double motor4bPower = 0.8;
         if(gamepad1.y) { 
             robot.cuatroBarras.setPower(motor4bPower);
-        }else if(gamepad1.b){
+        }else if(gamepad1.a){
             robot.cuatroBarras.setPower(-motor4bPower);
         }else{
             robot.cuatroBarras.setPower(0);
