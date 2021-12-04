@@ -39,16 +39,15 @@ public class Naubot {
         superPato = hardwareMap.get(DcMotor.class, "motorSuperPato");
     }
     
-    public void move(double drive, double lateral, double turn){
-        double potencia = 0.85; 
+    public void move(double drive, double lateral, double turn, double multiplier){
         double frontLeftPower = drive + lateral + turn;
         double frontRightPower = drive - lateral - turn;
         double backLeftPower = drive - lateral + turn;
         double backRightPower = drive + lateral - turn;
-        frontLeft.setPower(frontLeftPower*potencia);
-        frontRight.setPower(frontRightPower*potencia);
-        backLeft.setPower(backLeftPower*potencia);
-        backRight.setPower(backRightPower*potencia); 
+        frontLeft.setPower(frontLeftPower*multiplier);
+        frontRight.setPower(frontRightPower*multiplier);
+        backLeft.setPower(backLeftPower*multiplier);
+        backRight.setPower(backRightPower*multiplier); 
     }
     
     public void pickFreight(){
