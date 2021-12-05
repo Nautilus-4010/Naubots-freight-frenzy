@@ -1,11 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 
-@Autonomous(name="Blue Alliance")
-public class AutonomoBlue extends LinearOpMode {
+@Autonomous(name="Autonomo")
+public class Autonomo extends LinearOpMode {
     private Naubot robot;
 
     @Override

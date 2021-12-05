@@ -36,6 +36,14 @@ public class Teleoperado extends OpMode{
             powerMultiplier = 1.0;
         else
             powerMultiplier = 0.5;
+        if(gamepad2.dpad_up)
+            drive = 0.8;
+        else if(gamepad2.dpad_down)
+            drive = -0.8;
+        if(gamepad2.dpad_left)
+            lateral = -0.8;
+        else if(gamepad2.dpad_right)
+            lateral = 0.8;
         robot.move(drive, lateral, turn, powerMultiplier);
         
         // Intake control
