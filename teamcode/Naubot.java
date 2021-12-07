@@ -4,13 +4,17 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.Gamepad;
 
 public class Naubot {
     
     private double INTAKE_POWER = 1.0;
     private double SUPER_PATO_POWER = 1.0;
     private static final double TICKS_PER_CM = 27.526;
+    // TODO: definir valores
+    private final SERVO_POSICION_UNO = 0.3, SERVO_POSICION_DOS = 0.5, 
+    SERVO_POSICION_TRES = 0.7, SERVO_POSICION_CUATRO = 0.9;
     
     private OpMode programa;
 
@@ -22,6 +26,9 @@ public class Naubot {
     public DcMotor cuatroBarras;
     private DcMotor intake;
     private DcMotor superPato;
+    
+    //TODO: Personalizar nombre
+    public Servo servo;
     
     public Naubot(OpMode programa){
         this.programa = programa;
@@ -40,6 +47,11 @@ public class Naubot {
         cuatroBarras = hardwareMap.get(DcMotor.class, "motor4b");
         intake = hardwareMap.get(DcMotor.class, "motorIntake");
         superPato = hardwareMap.get(DcMotor.class, "motorSuperPato");
+        
+        // TODO: cambiar nombre
+        servo = hardwareMap.get(Servo.class, "servo");
+        // TODO: redefinir rango?
+        // servo.setRange(min, max);
     }
     
     public void moverLateral(double distancia){
@@ -75,14 +87,21 @@ public class Naubot {
     
     public void pickFreight(){
         intake.setPower(INTAKE_POWER);
+        servo.setPosition(SERVO_POSICION_UNO);
     }
 
     public void dropFreight(){
         intake.setPower(-INTAKE_POWER);
+        servo.setPosition(SERVO_POSICION_DOS);
     }
 
     public void stopInTake(){
         intake.setPower(0);
+        servo.setPosition(SERVO_POSICION_TRES);
+    }
+    
+    public void dropServo(){
+        servo.setPosition(SERVO_POSICION_CUATRO);
     }
     
     public void dropSuperPato(){
