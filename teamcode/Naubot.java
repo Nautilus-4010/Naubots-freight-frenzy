@@ -19,6 +19,16 @@ public class Naubot {
     private final double SERVO_POSICION_TRES = 0.7;
     private final double SERVO_POSICION_CUATRO = 0.3;
     
+    // Son constantes estaticas
+    // TODO: definir valores
+    public static final double BARRAS_POSICION_UNO = 0.6;
+    public static final double BARRAS_POSICION_DOS = 0.5;
+    public static final double BARRAS_POSICION_TRES = 0.4;
+    public static final double BARRAS_POSICION_CUATRO = 0.3;
+    
+    // Como declararlo en teleop/autonomo
+    // robot.setBarrasPosition(Naubot.BARRAS_POSICION_UNO);
+    
     private OpMode programa;
 
     public DcMotor frontLeft;
@@ -133,8 +143,22 @@ public class Naubot {
         
     }
     
-    public double getCuatroBarrasPosition(){
+    private double getPotPosition(){
         return pot.getVoltage() / pot.getMaxVoltage();
+    }
+    
+    // TODO: Declarar targets position (como constantes). 
+    public void setCuatroBarrasPosition(double targetPosition){
+        double currentPosition = getPotPosition();
+        // Cambiar cuando se sepan los valores de la posicion
+        double motorPower = 0.5;
+        if(currentPosition<targetPosition){
+            motor.setPower(motorPower);
+        }else if(currentPosition>targetPosition){
+            motor.setPower(-motorPower);
+        }else{
+            motor.setPower(0);
+        }
     }
     
     private void initAutoDrive(){
