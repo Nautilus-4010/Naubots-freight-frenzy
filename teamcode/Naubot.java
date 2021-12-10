@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.AnalogInput;
 
 public class Naubot {
     
@@ -31,6 +32,8 @@ public class Naubot {
     //TODO: Personalizar nombre
     public Servo servo;
     
+    public AnalogInput pot;
+    
     public Naubot(OpMode programa){
         this.programa = programa;
     }
@@ -52,6 +55,9 @@ public class Naubot {
         servo = hardwareMap.get(Servo.class, "servo");
         // TODO: redefinir rango?
         // servo.setRange(min, max);
+        
+        // TODO: cambiar nombre
+        pot = hardwareMap.get(AnalogInput.class, "pot");
     }
     
     public void moverLateral(double distancia){
@@ -125,6 +131,10 @@ public class Naubot {
         backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         
+    }
+    
+    public double getCuatroBarrasPosition(){
+        return pot.getVoltage() / pot.getMaxVoltage();
     }
     
     private void initAutoDrive(){
