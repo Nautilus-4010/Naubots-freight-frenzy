@@ -80,6 +80,16 @@ public class Naubot {
         initAutoDrive();
     }
     
+    public void girar (double distancia){
+        int target = (int) Math.round(distancia * TICKS_PER_CM);
+        resetEncoders();
+        frontLeft.setTargetPosition(target);
+        frontRight.setTargetPosition(-target);
+        backLeft.setTargetPosition(target);
+        backRight.setTargetPosition(-target);
+        initAutoDrive();
+    }
+    
     public void avanzar(double distancia){
         int target = (int) Math.round(distancia * TICKS_PER_CM);
         resetEncoders();
