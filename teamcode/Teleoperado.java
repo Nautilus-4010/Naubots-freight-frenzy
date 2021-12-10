@@ -93,6 +93,8 @@ public class Teleoperado extends OpMode{
         telemetry.addData("Back left", "" + robot.backLeft.getCurrentPosition());
         telemetry.addData("Back right", "" + robot.backRight.getCurrentPosition());
         
+        telemetry.addData("Posicion potenciometro: %.3f", robot.pot.getVoltage()/robot.pot.getMaxVoltage());
+        
         telemetry.update();
     }
 
