@@ -153,7 +153,7 @@ public class Naubot {
         
     }
     
-    private double getPotPosition(){
+    public double getPotPosition(){
         return pot.getVoltage() / pot.getMaxVoltage();
     }
     
