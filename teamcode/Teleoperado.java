@@ -25,17 +25,20 @@ public class Teleoperado extends OpMode{
     public void start(){
         
     }
-    
+
+//////////////////////////////////////////
+
     @Override
     public void loop(){
         double powerMultiplier; 
         double drive = -gamepad1.left_stick_y;
         double lateral = gamepad1.left_stick_x;
         double turn = gamepad1.right_stick_x;
+        
         if(gamepad1.right_trigger > 0.5)
             powerMultiplier = 1.0;
         else
-            powerMultiplier = 0.5;
+            powerMultiplier = 0.4;
         if(gamepad1.dpad_up)
             drive = 0.8;
         else if(gamepad1.dpad_down)
@@ -47,33 +50,39 @@ public class Teleoperado extends OpMode{
         robot.move(drive, lateral, turn, powerMultiplier);
         
         // Intake control
+        
         if(gamepad2.left_trigger > 0.5)
-            robot.pickFreight();
+            robot.pickBackFreight();
         else if(gamepad2.right_trigger > 0.5)
+            robot.pickFrontFreight(); 
+        else if(gamepad2.dpad_down)
             robot.dropFreight();
-        else if(gamepad2.dpad_dow)
-            robot.dropServo();
         else
             robot.stopInTake();
 
         //SuperPato control
-        if(gamepad1.a){
-            robot.dropSuperPato();
-        } else if(gamepad1.y){
-            robot.drop2SuperPato();
+        
+        if(gamepad2.x){
+            robot.dropBlueSuperPato();
+        } else if(gamepad2.b){
+            robot.dropRedSuperPato();
         }else {
             robot.stopSuperPato();
         }
         
         // Cuatro barras control
+        
         controlCuatroBarras();
         logRobotStatus();
     }
     
+////////////////////////////////////////////////
+
     @Override
     public void stop(){}
     
     private void logRobotStatus(){
+        telemetry.addData("Servo: ", robot.servo.getPosition());
         telemetry.addData("POWER", "");
         telemetry.addData("", String.format("%.2f | %.2f", robot.frontLeft.getPower(), robot.frontRight.getPower()));
         telemetry.addData("", String.format("%.2f | %.2f", robot.backLeft.getPower(), robot.backRight.getPower()));
@@ -84,14 +93,16 @@ public class Teleoperado extends OpMode{
         telemetry.addData("Back left", "" + robot.backLeft.getCurrentPosition());
         telemetry.addData("Back right", "" + robot.backRight.getCurrentPosition());
         
+        telemetry.addData("Posicion potenciometro: %.3f", robot.pot.getPotPosition());
+        
         telemetry.update();
     }
 
     private void controlCuatroBarras(){
         double motor4bPower = 0.8;
-        if(gamepad2.y) { 
+        if(gamepad2.a) { 
             robot.cuatroBarras.setPower(motor4bPower);
-        }else if(gamepad2.a){
+        }else if(gamepad2.y){
             robot.cuatroBarras.setPower(-motor4bPower);
         }else{
             robot.cuatroBarras.setPower(0);
