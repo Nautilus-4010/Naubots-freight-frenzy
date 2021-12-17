@@ -17,11 +17,12 @@ public class Naubot {
     private double SUPER_PATO_POWER = 1.0;
 
     //Valores servos:
-    private final double SERVO_POSICION_UNO = 0.90;
-    private final double SERVO_POSICION_DOS = 0.3;
-    private final double SERVO_POSICION_TRES = 0.725;
+    private final double CAJA_POSICION_UNO = 0.90;
+    private final double CAJA_POSICION_DOS = 0.3;
+    private final double CAJA_POSICION_TRES = 0.725;
     private final double BRAZO_POSICION_UNO = -0.10;
     private final double BRAZO_POSICION_DOS = 0.70;
+
     // TODO: definir valores
     //Niveles 4 barras:
     public static final double BARRAS_POSICION_UNO = 0.6;
@@ -48,12 +49,13 @@ public class Naubot {
     private DcMotor superPato2;
 
     //Servos:
-    public Servo servo;
+    public Servo caja;
     public Servo brazo;
     
     //InPut(s)
     public AnalogInput pot;
     
+////////////////////////////////////////////////////////////////////////////////
 
     public Naubot(OpMode programa){
         this.programa = programa;
@@ -73,19 +75,11 @@ public class Naubot {
         intake = hardwareMap.get(DcMotor.class, "motorIntake");
         superPato = hardwareMap.get(DcMotor.class, "motorSuperPato");
         superPato2 = hardwareMap.get(DcMotor.class, "motorSuperPato2");
-        // TODO: cambiar nombre
-        servo = hardwareMap.get(Servo.class, "servo");
-        
-        
+        pot = hardwareMap.get(AnalogInput.class, "pot");
+        caja = hardwareMap.get(Servo.class, "caja");
         brazo = hardwareMap.get(Servo.class, "brazo");
-        
-        
-        
         // TODO: redefinir rango?
         // servo.setRange(min, max);
-        
-        // TODO: cambiar nombre
-        pot = hardwareMap.get(AnalogInput.class, "pot");
     }
     
     public void moverLateral(double distancia){
@@ -129,9 +123,6 @@ public class Naubot {
         backRight.setPower(backRightPower*multiplier);
     }
     
-    
-    
-    
     public void pickBrazo(){
         brazo.setPosition(BRAZO_POSICION_UNO);
     }
@@ -140,29 +131,39 @@ public class Naubot {
         brazo.setPosition(BRAZO_POSICION_DOS);
     }
     
-    
-    
-    
-    public void pickFrontFreight(){
+    public void pickFreight(){
         intake.setPower(-INTAKE_POWER);
-        servo.setPosition(SERVO_POSICION_UNO);
+        servo.setPosition(CAJA_POSICION_UNO);
+    }
+
+    public void dropFreight(){
+        servo.setPosition(CAJA_POSICION_DOS);
     }
 
     public void stopInTake(){
         intake.setPower(0);
-        servo.setPosition(SERVO_POSICION_TRES);
+        servo.setPosition(CAJA_POSICION_TRES);
     }
-    
-    public void dropFreight(){
-        servo.setPosition(SERVO_POSICION_DOS);
+
+    public void exitFreigh(){
+        intake.setPower(INTAKE_POWER);
+        servo.setPosition(CAJA_POSICION_TRES);
     }
     
     public void dropBlueSuperPato(){
         superPato.setPower(SUPER_PATO_POWER);
     }
+
+    public void dropBlueSuperPatoRemix(){
+        superPato.setPower(-SUPER_PATO_POWER);
+    }
     
     public void dropRedSuperPato(){
         superPato2.setPower(SUPER_PATO_POWER);
+    }
+
+    public void dropRedSuperPatoRemix(){
+        superPato2.setPower(-SUPER_PATO_POWER);
     }
 
     public void stopSuperPato(){
@@ -178,8 +179,7 @@ public class Naubot {
         frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        
+        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER); 
     }
     
     public double getPotPosition(){

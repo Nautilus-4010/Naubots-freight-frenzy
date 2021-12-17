@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Naubot;
 
-
 @TeleOp(name="Teleoperado")
+
 public class Teleoperado extends OpMode{
     private Naubot robot;
 
@@ -26,15 +26,17 @@ public class Teleoperado extends OpMode{
         
     }
 
-//////////////////////////////////////////
+/////////////////////////////////////////////////////////
 
     @Override
     public void loop(){
+
+    // Chasis control
+
         double powerMultiplier; 
         double drive = -gamepad1.left_stick_y;
         double lateral = gamepad1.left_stick_x;
         double turn = gamepad1.right_stick_x;
-        
         if(gamepad1.right_trigger > 0.5)
             powerMultiplier = 1.0;
         else
@@ -49,43 +51,44 @@ public class Teleoperado extends OpMode{
             lateral = 0.8;
         robot.move(drive, lateral, turn, powerMultiplier);
         
-        // Intake control
+    // Intake control
         
         if(gamepad2.left_trigger > 0.5)
-            //robot.pickBackFreight();
             robot.dropFreight();
         else if(gamepad2.right_trigger > 0.5)
-            robot.pickFrontFreight(); 
+            robot.pickFreight();
+        else if(gamepad2.left_trigger > 0.3 & gamepad2.right_trigger > 0.3)
+            robot.exitFreigh();
         else
             robot.stopInTake();
-            
-            
-            // Brazo control
+
+    // Brazo control
         
         if(gamepad2.dpad_up)
             robot.pickBrazo();
         else
             robot.stopBrazo();
             
-            
-
-        //SuperPato control
+    //SuperPato control
         
-        if(gamepad2.x){
+        if(gamepad1.dpad_left)
             robot.dropBlueSuperPato();
-        } else if(gamepad2.b){
+        else if(gamepad1.dpad_right)
             robot.dropRedSuperPato();
-        }else {
+        else if(gamepad1.dpad_up)
+            robot.dropBlueSuperPatoRemix()
+        else if(gamepad1.dpad_down)
+            robot.dropRedSuperPatoRemix();
+        else
             robot.stopSuperPato();
-        }
-        
-        // Cuatro barras control
+
+    // Cuatro barras control
         
         controlCuatroBarras();
         logRobotStatus();
     }
     
-////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////
 
     @Override
     public void stop(){}
@@ -106,6 +109,8 @@ public class Teleoperado extends OpMode{
         
         telemetry.update();
     }
+
+/////////////////////////////////////////////////////////////
 
     private void controlCuatroBarras(){
         double motor4bPower = 0.6;
