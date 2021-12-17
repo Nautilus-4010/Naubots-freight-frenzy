@@ -83,7 +83,22 @@ public class Teleoperado extends OpMode{
             robot.dropRedSuperPatoRemix();
         else
             robot.stopSuperPato();
-
+            
+    //4Barras Automatico control
+    
+      /*  
+        if(gamepad2.a)
+            robot.setCuatroBarrasPosition(Naubot.BARRAS_POSICION_UNO);
+        else if(gamepad2.b)
+            robot.setCuatroBarrasPosition(Naubot.BARRAS_POSICION_DOS);
+        else if(gamepad2.y)
+            robot.setCuatroBarrasPosition(Naubot.BARRAS_POSICION_TRES);
+        else if(gamepad2.x)
+            robot.setCuatroBarrasPosition(Naubot.BARRAS_POSICION_CUATRO);
+        else
+            robot.setCuatroBarrasPosition(Naubot.BARRAS_POSICION_CINCO);
+      */
+      
     // Cuatro barras control
         
         controlCuatroBarras();

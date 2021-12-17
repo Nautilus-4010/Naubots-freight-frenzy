@@ -25,12 +25,14 @@ public class Naubot {
 
     // TODO: definir valores
     //Niveles 4 barras:
-    public static final double BARRAS_POSICION_UNO = 0.6;
-    public static final double BARRAS_POSICION_DOS = 0.4;
-    public static final double BARRAS_POSICION_TRES = 0.3;
-    public static final double BARRAS_POSICION_CUATRO = 0.3;
+    public static final double BARRAS_POSICION_UNO = 0.0293;
+    public static final double BARRAS_POSICION_DOS = 0.1;
+    public static final double BARRAS_POSICION_TRES = 0.2;
+    public static final double BARRAS_POSICION_CUATRO = 0.28;
+    public static final double BARRAS_POSICION_CINCO = 0.1;
     
     //Data:
+    private double targetPosition;
     private static final double TICKS_PER_CM = 14.1;
     // Como declararlo en teleop/autonomo:    robot.setBarrasPosition(Naubot.BARRAS_POSICION_UNO);
     
@@ -192,9 +194,9 @@ public class Naubot {
         // Cambiar cuando se sepan los valores de la posicion
         double motorPower = 0.5; 
         if(currentPosition<targetPosition){
-            cuatroBarras.setPower(motorPower);
-        }else if(currentPosition>targetPosition){
             cuatroBarras.setPower(-motorPower);
+        }else if(currentPosition>targetPosition){
+            cuatroBarras.setPower(motorPower);
         }else{
             cuatroBarras.setPower(0);
         }
