@@ -8,51 +8,53 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.AnalogInput;
 
+////////////////////////////////////////////////////////////////////////////////
+
 public class Naubot {
     
+    //Valores Motores:
     private double INTAKE_POWER = 1.0;
     private double SUPER_PATO_POWER = 1.0;
-    private static final double TICKS_PER_CM = 14.1;
-    // TODO: definir valores
+
+    //Valores servos:
     private final double SERVO_POSICION_UNO = 0.90;
     private final double SERVO_POSICION_DOS = 0.3;
     private final double SERVO_POSICION_TRES = 0.725;
-    
-    
     private final double BRAZO_POSICION_UNO = -0.10;
     private final double BRAZO_POSICION_DOS = 0.70;
-    
-    
-    // Son constantes estaticas
     // TODO: definir valores
+    //Niveles 4 barras:
     public static final double BARRAS_POSICION_UNO = 0.6;
     public static final double BARRAS_POSICION_DOS = 0.4;
     public static final double BARRAS_POSICION_TRES = 0.3;
     public static final double BARRAS_POSICION_CUATRO = 0.3;
     
-    // Como declararlo en teleop/autonomo
-    // robot.setBarrasPosition(Naubot.BARRAS_POSICION_UNO);
+    //Data:
+    private static final double TICKS_PER_CM = 14.1;
+    // Como declararlo en teleop/autonomo:    robot.setBarrasPosition(Naubot.BARRAS_POSICION_UNO);
     
     private OpMode programa;
 
+    //Motores Chasis:
     public DcMotor frontLeft;
     public DcMotor frontRight;
     public DcMotor backLeft;
     public DcMotor backRight;
     
+    //Motores
     public DcMotor cuatroBarras;
     private DcMotor intake;
     private DcMotor superPato;
     private DcMotor superPato2;
-    //TODO: Personalizar nombre
+
+    //Servos:
     public Servo servo;
-    
-    
     public Servo brazo;
     
-    
+    //InPut(s)
     public AnalogInput pot;
     
+
     public Naubot(OpMode programa){
         this.programa = programa;
     }
