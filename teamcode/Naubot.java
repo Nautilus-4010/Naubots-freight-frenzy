@@ -17,9 +17,9 @@ public class Naubot {
     private double SUPER_PATO_POWER = 1.0;
 
     //Valores servos:
-    private final double CAJA_POSICION_UNO = 0.90;
-    private final double CAJA_POSICION_DOS = 0.3;
-    private final double CAJA_POSICION_TRES = 0.725;
+    private final double CAJA_POSICION_UNO = 0.725;
+    private final double CAJA_POSICION_DOS = 0.20;
+    private final double CAJA_POSICION_TRES = 0.56;
     private final double BRAZO_POSICION_UNO = -0.10;
     private final double BRAZO_POSICION_DOS = 0.70;
 
@@ -133,21 +133,21 @@ public class Naubot {
     
     public void pickFreight(){
         intake.setPower(-INTAKE_POWER);
-        servo.setPosition(CAJA_POSICION_UNO);
+        caja.setPosition(CAJA_POSICION_UNO);
     }
 
     public void dropFreight(){
-        servo.setPosition(CAJA_POSICION_DOS);
+        caja.setPosition(CAJA_POSICION_DOS);
     }
 
     public void stopInTake(){
         intake.setPower(0);
-        servo.setPosition(CAJA_POSICION_TRES);
+        caja.setPosition(CAJA_POSICION_TRES);
     }
 
     public void exitFreigh(){
         intake.setPower(INTAKE_POWER);
-        servo.setPosition(CAJA_POSICION_TRES);
+        caja.setPosition(CAJA_POSICION_TRES);
     }
     
     public void dropBlueSuperPato(){
