@@ -63,13 +63,9 @@ public class Teleoperado extends OpMode{
             robot.stopInTake();
 
     // Brazo control
-        
-        /*
-        if(gamepad2.dpad_up)
-            robot.pickBrazo();
-        else
-            robot.stopBrazo();
-        */
+    
+        double brazoPower = gamepad2.left_stick_x;
+        robot.controlBrazo(brazoPower);
             
     //SuperPato control
         

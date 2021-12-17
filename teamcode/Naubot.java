@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -20,8 +21,6 @@ public class Naubot {
     private final double CAJA_POSICION_UNO = 0.725;
     private final double CAJA_POSICION_DOS = 0.20;
     private final double CAJA_POSICION_TRES = 0.56;
-    private final double BRAZO_POSICION_UNO = -0.10;
-    private final double BRAZO_POSICION_DOS = 0.70;
 
     // TODO: definir valores
     //Niveles 4 barras:
@@ -33,7 +32,7 @@ public class Naubot {
     
     //Data:
     private double targetPosition;
-    private static final double TICKS_PER_CM = 14.1;
+    private static final double TICKS_PER_CM = 15.76;
     // Como declararlo en teleop/autonomo:    robot.setBarrasPosition(Naubot.BARRAS_POSICION_UNO);
     
     private OpMode programa;
@@ -52,7 +51,7 @@ public class Naubot {
 
     //Servos:
     public Servo caja;
-    public Servo brazo;
+    public CRServo brazo;
     
     //InPut(s)
     public AnalogInput pot;
@@ -79,7 +78,7 @@ public class Naubot {
         superPato2 = hardwareMap.get(DcMotor.class, "motorSuperPato2");
         pot = hardwareMap.get(AnalogInput.class, "pot");
         caja = hardwareMap.get(Servo.class, "caja");
-        brazo = hardwareMap.get(Servo.class, "brazo");
+        brazo = hardwareMap.get(CRServo.class, "brazo");
         // TODO: redefinir rango?
         // servo.setRange(min, max);
     }
@@ -124,15 +123,11 @@ public class Naubot {
         backLeft.setPower(backLeftPower*multiplier);
         backRight.setPower(backRightPower*multiplier);
     }
-    
-    public void pickBrazo(){
-        brazo.setPosition(BRAZO_POSICION_UNO);
+
+    public void controlBrazo(double brazoPower){
+        brazo.setPower(brazoPower);
     }
-    
-    public void stopBrazo(){
-        brazo.setPosition(BRAZO_POSICION_DOS);
-    }
-    
+
     public void pickFreight(){
         intake.setPower(-INTAKE_POWER);
         caja.setPosition(CAJA_POSICION_UNO);
