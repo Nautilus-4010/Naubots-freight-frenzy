@@ -16,7 +16,7 @@ public class AutonomoRed extends LinearOpMode {
         waitForStart();
        
        
-       robot.avanzar(70);
+        robot.avanzar(120);
         robot.girar(-56);
         robot.cuatroBarras.setPower(-0.3);
          sleep(1450);
@@ -28,10 +28,10 @@ public class AutonomoRed extends LinearOpMode {
         robot.cuatroBarras.setPower(0.3);
          sleep(1300);
         robot.cuatroBarras.setPower(0);
-        robot.moverLateral(-78);
+        robot.moverLateral(-140);
         robot.avanzar(-120);
         robot.pickFreight();
-         sleep(1000);
+         sleep(1300);
          
          
     }
