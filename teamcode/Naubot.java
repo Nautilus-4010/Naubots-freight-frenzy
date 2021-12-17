@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.AnalogInput;
 
 public class Naubot {
     
@@ -13,10 +14,24 @@ public class Naubot {
     private double SUPER_PATO_POWER = 1.0;
     private static final double TICKS_PER_CM = 14.1;
     // TODO: definir valores
-    private final double SERVO_POSICION_UNO = 0.5;
-    private final double SERVO_POSICION_DOS = 0.9;
-    private final double SERVO_POSICION_TRES = 0.7;
-    private final double SERVO_POSICION_CUATRO = 0.3;
+    private final double SERVO_POSICION_UNO = 0.90;
+    private final double SERVO_POSICION_DOS = 0.3;
+    private final double SERVO_POSICION_TRES = 0.725;
+    
+    
+    private final double BRAZO_POSICION_UNO = -0.10;
+    private final double BRAZO_POSICION_DOS = 0.70;
+    
+    
+    // Son constantes estaticas
+    // TODO: definir valores
+    public static final double BARRAS_POSICION_UNO = 0.6;
+    public static final double BARRAS_POSICION_DOS = 0.4;
+    public static final double BARRAS_POSICION_TRES = 0.3;
+    public static final double BARRAS_POSICION_CUATRO = 0.3;
+    
+    // Como declararlo en teleop/autonomo
+    // robot.setBarrasPosition(Naubot.BARRAS_POSICION_UNO);
     
     private OpMode programa;
 
@@ -28,8 +43,15 @@ public class Naubot {
     public DcMotor cuatroBarras;
     private DcMotor intake;
     private DcMotor superPato;
+    private DcMotor superPato2;
     //TODO: Personalizar nombre
     public Servo servo;
+    
+    
+    public Servo brazo;
+    
+    
+    public AnalogInput pot;
     
     public Naubot(OpMode programa){
         this.programa = programa;
@@ -48,10 +70,20 @@ public class Naubot {
         cuatroBarras = hardwareMap.get(DcMotor.class, "motor4b");
         intake = hardwareMap.get(DcMotor.class, "motorIntake");
         superPato = hardwareMap.get(DcMotor.class, "motorSuperPato");
+        superPato2 = hardwareMap.get(DcMotor.class, "motorSuperPato2");
         // TODO: cambiar nombre
         servo = hardwareMap.get(Servo.class, "servo");
+        
+        
+        brazo = hardwareMap.get(Servo.class, "brazo");
+        
+        
+        
         // TODO: redefinir rango?
         // servo.setRange(min, max);
+        
+        // TODO: cambiar nombre
+        pot = hardwareMap.get(AnalogInput.class, "pot");
     }
     
     public void moverLateral(double distancia){
@@ -61,6 +93,16 @@ public class Naubot {
         frontRight.setTargetPosition(-target);
         backLeft.setTargetPosition(-target);
         backRight.setTargetPosition(target);
+        initAutoDrive();
+    }
+    
+    public void girar (double distancia){
+        int target = (int) Math.round(distancia * TICKS_PER_CM);
+        resetEncoders();
+        frontLeft.setTargetPosition(target);
+        frontRight.setTargetPosition(-target);
+        backLeft.setTargetPosition(target);
+        backRight.setTargetPosition(-target);
         initAutoDrive();
     }
     
@@ -85,12 +127,22 @@ public class Naubot {
         backRight.setPower(backRightPower*multiplier);
     }
     
-    public void pickBackFreight(){
-        intake.setPower(-INTAKE_POWER);
-        servo.setPosition(SERVO_POSICION_DOS);
+    
+    
+    
+    public void pickBrazo(){
+        brazo.setPosition(BRAZO_POSICION_UNO);
     }
-
+    
+    public void stopBrazo(){
+        brazo.setPosition(BRAZO_POSICION_DOS);
+    }
+    
+    
+    
+    
     public void pickFrontFreight(){
+        intake.setPower(-INTAKE_POWER);
         servo.setPosition(SERVO_POSICION_UNO);
     }
 
@@ -100,7 +152,7 @@ public class Naubot {
     }
     
     public void dropFreight(){
-        servo.setPosition(SERVO_POSICION_CUATRO);
+        servo.setPosition(SERVO_POSICION_DOS);
     }
     
     public void dropBlueSuperPato(){
@@ -108,11 +160,12 @@ public class Naubot {
     }
     
     public void dropRedSuperPato(){
-        superPato.setPower(-SUPER_PATO_POWER);
+        superPato2.setPower(SUPER_PATO_POWER);
     }
 
     public void stopSuperPato(){
         superPato.setPower(0);
+        superPato2.setPower(0);
     }
     
     private void resetEncoders(){
@@ -127,8 +180,26 @@ public class Naubot {
         
     }
     
+    public double getPotPosition(){
+        return pot.getVoltage() / pot.getMaxVoltage();
+    }
+    
+    // TODO: Declarar targets position (como constantes). 
+    public void setCuatroBarrasPosition(double targetPosition){
+        double currentPosition = getPotPosition();
+        // Cambiar cuando se sepan los valores de la posicion
+        double motorPower = 0.5; 
+        if(currentPosition<targetPosition){
+            cuatroBarras.setPower(motorPower);
+        }else if(currentPosition>targetPosition){
+            cuatroBarras.setPower(-motorPower);
+        }else{
+            cuatroBarras.setPower(0);
+        }
+    }
+    
     private void initAutoDrive(){
-        double power = 0.5;
+        double power = 0.8;
         frontRight.setPower(power);
         frontLeft.setPower(power);
         backLeft.setPower(power);

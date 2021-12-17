@@ -38,7 +38,7 @@ public class Teleoperado extends OpMode{
         if(gamepad1.right_trigger > 0.5)
             powerMultiplier = 1.0;
         else
-            powerMultiplier = 0.4;
+            powerMultiplier = 0.6;
         if(gamepad1.dpad_up)
             drive = 0.8;
         else if(gamepad1.dpad_down)
@@ -52,13 +52,22 @@ public class Teleoperado extends OpMode{
         // Intake control
         
         if(gamepad2.left_trigger > 0.5)
-            robot.pickBackFreight();
+            //robot.pickBackFreight();
+            robot.dropFreight();
         else if(gamepad2.right_trigger > 0.5)
             robot.pickFrontFreight(); 
-        else if(gamepad2.dpad_down)
-            robot.dropFreight();
         else
             robot.stopInTake();
+            
+            
+            // Brazo control
+        
+        if(gamepad2.dpad_up)
+            robot.pickBrazo();
+        else
+            robot.stopBrazo();
+            
+            
 
         //SuperPato control
         
@@ -93,11 +102,13 @@ public class Teleoperado extends OpMode{
         telemetry.addData("Back left", "" + robot.backLeft.getCurrentPosition());
         telemetry.addData("Back right", "" + robot.backRight.getCurrentPosition());
         
+        telemetry.addData("Posicion potenciometro: %.3f", robot.getPotPosition());
+        
         telemetry.update();
     }
 
     private void controlCuatroBarras(){
-        double motor4bPower = 0.8;
+        double motor4bPower = 0.6;
         if(gamepad2.a) { 
             robot.cuatroBarras.setPower(motor4bPower);
         }else if(gamepad2.y){
