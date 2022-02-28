@@ -33,7 +33,7 @@ public class AutonomoBluePato extends LinearOpMode {
         robot.dropBlueSuperPato();
          sleep(100);
         robot.moverLateral(65);
-        
-        
+
+
     }
 }

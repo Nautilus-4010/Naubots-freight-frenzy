@@ -193,11 +193,6 @@ public class Naubot {
         superPato2.setPower(0);
     }
     
-    /*public void controlBrazo(double brazoPower){
-        brazo.setPower(brazoPower);
-    }
-    */
-    
     private void resetEncoders(){
         frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -227,7 +222,6 @@ public class Naubot {
         ){
             LinearOpMode programaAutonomo = (LinearOpMode) programa;
             programaAutonomo.sleep(50);
-            
         }
             
     }

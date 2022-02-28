@@ -18,14 +18,7 @@ public class Teleoperado extends OpMode{
         robot.initializeHardware();
         telemetry.update();
     }
-    
-    @Override
-    public void init_loop(){}
-    
-    @Override
-    public void start(){
-        
-    }
+
 
 /////////////////////////////////////////////////////////
 
@@ -37,30 +30,10 @@ public class Teleoperado extends OpMode{
         
         
     // Intake control
-        if(gamepad2.left_trigger > 0 && gamepad2.right_trigger > 0)
-            robot.exitFreight();
-        else if(gamepad2.left_trigger > 0)
-            robot.dropFreight();
-        else if(gamepad2.right_trigger > 0 || gamepad1.right_trigger > 0)
-            robot.pickFreight();
-        else
-            robot.stopInTake();
-        
-        //(gamepad1.left_trigger > 0)
-           // robot.dropFreight();
+        controlIntake();
 
     //SuperPato control
-        
-        if(gamepad2.dpad_right)
-            robot.dropBlueSuperPato();
-        else if(gamepad2.dpad_left)
-            robot.dropRedSuperPato();
-        else if(gamepad2.dpad_down)
-            robot.dropBlueSuperPatoRemix();
-        else if(gamepad2.dpad_up) 
-            robot.dropRedSuperPatoRemix();
-        else
-            robot.stopSuperPato();
+        controlSuperPato(gamepad2);
       
     // Cuatro barras control
         
@@ -68,28 +41,11 @@ public class Teleoperado extends OpMode{
         logRobotStatus();
         
     // Brazo control
-    
-        //double brazoPower = gamepad2.left_stick_x;
-        //robot.controlBrazo(brazoPower); 
-        
-        if(gamepad1.dpad_up)
-            robot.brazoGuardado();
-        else if(gamepad1.dpad_left)
-            robot.brazoPick();
-        else if(gamepad1.dpad_down)
-            robot.brazoDrop();
-    
-    
-    
+        brazoControl(gamepad1);
     }
-    
-    
-    
+
 
 /////////////////////////////////////////////////////////////
-
-    @Override
-    public void stop(){}
     
     private void logRobotStatus(){
         telemetry.addData("Servo Caja: ", robot.caja.getPosition());
@@ -108,9 +64,42 @@ public class Teleoperado extends OpMode{
 
 /////////////////////////////////////////////////////////////
 
+    private void brazoControl(Gamepad gamepad) {
+        if(gamepad.dpad_up)
+            robot.brazoGuardado();
+        else if(gamepad.dpad_left)
+            robot.brazoPick();
+        else if(gamepad.dpad_down)
+            robot.brazoDrop();
+    }
+
     private void controlCuatroBarras(){
         double motor4bPower = gamepad2.right_stick_y;
         robot.cuatroBarras.setPower(motor4bPower/2);
+    }
+    
+    private void controlIntake() {
+        if(gamepad2.left_trigger > 0 && gamepad2.right_trigger > 0)
+            robot.exitFreight();
+        else if(gamepad2.left_trigger > 0)
+            robot.dropFreight();
+        else if(gamepad2.right_trigger > 0 || gamepad1.right_trigger > 0)
+            robot.pickFreight();
+        else
+            robot.stopInTake();
+    }
+    
+    private void controlSuperPato(Gamepad gamepad) {
+        if(gamepad.dpad_right)
+            robot.dropBlueSuperPato();
+        else if(gamepad.dpad_left)
+            robot.dropRedSuperPato();
+        else if(gamepad.dpad_down)
+            robot.dropBlueSuperPatoRemix();
+        else if(gamepad.dpad_up) 
+            robot.dropRedSuperPatoRemix();
+        else
+            robot.stopSuperPato();
     }
     
     private void moveChasis(Gamepad gamepad) {
